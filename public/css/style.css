@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.swiper-pagination-bullet {
+    background-color: #000; /* Dot color */
+    opacity: 0.5; /* Dot transparency */
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #ff4081; /* Active dot color */
+    opacity: 1; /* Active dot transparency */
+}
+
+.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal {
+    position: relative;
+    top: 4px;
+    padding-top: 40px;
+}
+
+span.swiper-pagination-bullet {
+    background: black;
+}
+
+
+
+
+
+
+
+
