@@ -1,71 +1,72 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script>
-            @if(isset($items) && count($items) > 0)
-    const testimonials = [
-                    @foreach($items as $item)
-            {
-                text: "{{ $item->heading }}",
-                author: "- {{ $item->paragraph }}"
-            } @if (!$loop->last),@endif
-                @endforeach
-        ];
-            @else
-    const testimonials = [];
-            @endif
+{{--<script>--}}
+{{--            @if(isset($items) && count($items) > 0)--}}
+{{--    const testimonials = [--}}
+{{--                    @foreach($items as $item)--}}
+{{--            {--}}
+{{--                text: "{{ $item->heading }}",--}}
+{{--                author: "- {{ $item->paragraph }}"--}}
+{{--            } @if (!$loop->last),@endif--}}
+{{--                @endforeach--}}
+{{--        ];--}}
+{{--            @else--}}
+{{--    const testimonials = [];--}}
+{{--            @endif--}}
 
 
-    let currentIndex = 0;
+{{--    let currentIndex = 0;--}}
 
-    function showTestimonial(index) {
-        const testimonialText = document.getElementById('testimonial-text');
-        const testimonialAuthor = document.getElementById('testimonial-author');
-        testimonialText.textContent = testimonials[index].text;
-        testimonialAuthor.textContent = testimonials[index].author;
-    }
+{{--    function showTestimonial(index) {--}}
+{{--        const testimonialText = document.getElementById('testimonial-text');--}}
+{{--        const testimonialAuthor = document.getElementById('testimonial-author');--}}
+{{--        testimonialText.textContent = testimonials[index].text;--}}
+{{--        testimonialAuthor.textContent = testimonials[index].author;--}}
+{{--    }--}}
 
-    function nextTestimonial() {
-        currentIndex = (currentIndex + 1) % testimonials.length;
-        showTestimonial(currentIndex);
-    }
+{{--    function nextTestimonial() {--}}
+{{--        currentIndex = (currentIndex + 1) % testimonials.length;--}}
+{{--        showTestimonial(currentIndex);--}}
+{{--    }--}}
 
-    // Initial display
-    showTestimonial(currentIndex);
+{{--    // Initial display--}}
+{{--    showTestimonial(currentIndex);--}}
 
-    // Change testimonial every 5 seconds
-    setInterval(nextTestimonial, 5000);
-</script>
+{{--    // Change testimonial every 5 seconds--}}
+{{--    setInterval(nextTestimonial, 5000);--}}
+{{--</script>--}}
 
-<!-- Swiper Initialization -->
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var swiper = new Swiper('.swiper-container', {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            breakpoints: {
-                640: {
-                    slidesPerView: 1,
-                },
-                768: {
-                    slidesPerView: 2,
-                },
-                1024: {
-                    slidesPerView: 4,
-                },
-            },
-        });
-    });
-</script>
+
+{{--<script>--}}
+{{--    document.addEventListener('DOMContentLoaded', function () {--}}
+{{--        var swiper = new Swiper('.swiper-container', {--}}
+{{--            slidesPerView: 1,--}}
+{{--            spaceBetween: 0,--}}
+{{--            loop: true,--}}
+{{--            pagination: {--}}
+{{--                el: '.swiper-pagination',--}}
+{{--                clickable: true,--}}
+{{--            },--}}
+{{--            navigation: {--}}
+{{--                nextEl: '.swiper-button-next',--}}
+{{--                prevEl: '.swiper-button-prev',--}}
+{{--            },--}}
+{{--            breakpoints: {--}}
+{{--                640: {--}}
+{{--                    slidesPerView: 2,--}}
+{{--                },--}}
+{{--                768: {--}}
+{{--                    slidesPerView: 2,--}}
+{{--                },--}}
+{{--                1024: {--}}
+{{--                    slidesPerView: 7--}}
+{{--                    ,--}}
+{{--                },--}}
+{{--            },--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}
 
 
 
@@ -106,10 +107,34 @@
 
 
 
+<script>
+    // Toggle visibility on icon click
+    document.getElementById('search-icon').addEventListener('click', function () {
+        const searchField = document.getElementById('search-field');
+
+        // Toggle Tailwind 'hidden' class
+        searchField.classList.toggle('hidden');
+    });
+
+    // Check if there's a search value in the URL
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('search')) {
+        const searchField = document.getElementById('search-field');
+
+        // Remove 'hidden' class if search value exists
+        searchField.classList.remove('hidden');
+    }
+
+</script>
+
+
+
+
+
 
 <script>
     $(document).ready(function() {
-        const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+                {{--const isLoggedIn = {{ Auth::check() ? 'true' : 'false' }};--}}
         let isProcessing = false;
 
         $('.add-to-cart-btn, #add-to-cart').on('click', function(event) {
@@ -125,56 +150,56 @@
                 quantity = $('#quantity').val();
             } else {
 
-                
+
                 quantity = $(this).closest('.product-item').find('.quantity').val();
             }
 
-            console.log('User logged in:', isLoggedIn);
-
-            if (!isLoggedIn) {
-                console.log('Showing login popup');
-                showLoginPopup();
-                isProcessing = false;
-            } else {
-                console.log('Proceeding with adding to cart');
-                $.ajax({
-                    url: "{{ route('cart.add') }}",
-                    method: 'POST',
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        product_id: productId,
-                        quantity: quantity
-                    }),
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-                        alert(data.message);
-                    },
-                    error: function(xhr, status, error) {
-                        console.log('Error:', error);
-                        if (xhr.status === 401) {
-                            alert('Unauthorized: Please log in to proceed.');
-                        } else {
-                            alert('Error occurred: ' + error);
-                        }
-                    },
-                    complete: function() {
-                        isProcessing = false;
+            // console.log('User logged in:', isLoggedIn);
+            //
+            // if (!isLoggedIn) {
+            //     console.log('Showing login popup');
+            //     showLoginPopup();
+            //     isProcessing = false;
+            // } else {
+            //     console.log('Proceeding with adding to cart');
+            $.ajax({
+                url: "{{ route('cart.add') }}",
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    product_id: productId,
+                    quantity: quantity
+                }),
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    alert(data.message);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Error:', error);
+                    if (xhr.status === 401) {
+                        alert('Unauthorized: Please log in to proceed.');
+                    } else {
+                        alert('Error occurred: ' + error);
                     }
-                });
-            }
+                },
+                complete: function() {
+                    isProcessing = false;
+                }
+            });
         });
-
-        function showLoginPopup() {
-            $('#login-popup').css('display', 'block');
-        }
-
-        // Close login popup function
-        window.closePopup = function() {
-            $('#login-popup').css('display', 'none');
-        };
     });
+
+    //     function showLoginPopup() {
+    //         $('#login-popup').css('display', 'block');
+    //     }
+    //
+    //     // Close login popup function
+    //     window.closePopup = function() {
+    //         $('#login-popup').css('display', 'none');
+    //     };
+    // });
 </script>
 
 
@@ -208,7 +233,6 @@
             window.open('https://wa.me/?text=' + encodeURIComponent($('#share-link').val()), '_blank');
         });
     });
-
 </script>
 
 
@@ -231,7 +255,7 @@
 </script>
 
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
@@ -245,4 +269,4 @@
 
 </body>
 </html>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+

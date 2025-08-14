@@ -1,16 +1,74 @@
 @extends('frunt_layout.master')
 @section('content')
 
-    <main>
+    <main class="overflow-hidden">
         <div id="1styear">
-            <div class="bg-cover bg-center flex items-center justify-center px-6"
-                 style="height: 572px; background-image: url('assets/images/Frame 97.png');">
-                <div class="flex flex-col items-start md:items-center">
-                    <h1 class="text-4xl md:text-6xl mb-3 text-[#323232] font-times italic font-normal">All products</h1>
-                    <p class="mb-3 text-lg md:text-xl text-[#383838] font-poppins tracking-[5.6px] uppercase">True Natural - True Organic</p>
+            <div class="responsive-banner  flex items-center justify-center px-6"
+                 style=" background-image: url('assets/images/Frame 97.png');">
+                <div class="flex flex-col items-start md:items-center ">
+                    <h1 class="text-2xl md:text-6xl mb-3 text-[#323232] font-times italic  font-normal">All products</h1>
+                    <p class="mb-3 text-sm md:text-xl text-[#383838] font-poppins tracking-[5.6px] uppercase">True Natural - True Organic</p>
                 </div>
             </div>
         </div>
+
+        <style>
+            .responsive-banner {
+                height: 200px;
+                background-size: cover;
+                background-position: center;
+            }
+
+            @media (min-width: 768px)  { /* Medium screens and above */
+                .responsive-banner {
+                    height: 400px;
+                }
+            }
+
+            @media (min-width: 1024px) { /* Large screens and above */
+                .responsive-banner {
+                    height: 572px;
+                }
+            }
+
+            .banner-title {
+                font-size: 32px; /* Default font size for smaller screens */
+            }
+
+            @media (min-width: 768px) {
+                .banner-title {
+                    font-size: 48px;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .banner-title {
+                    font-size: 56px;
+                }
+            }
+
+            .banner-button {
+                padding: 8px 16px; /* Default button padding */
+                font-size: 14px;
+            }
+
+            @media (min-width: 768px) {
+                .banner-button {
+                    padding: 12px 20px;
+                    font-size: 16px;
+                }
+            }
+
+            @media (min-width: 1024px) {
+                .banner-button {
+                    padding: 16px 24px;
+                    font-size: 18px;
+                }
+            }
+
+        </style>
+
+
 
         <div id="login-popup" class="fixed inset-0 flex items-center justify-center z-50" style="display: none;">
             <div class="overlay fixed inset-0 bg-gray-900 opacity-50" onclick="closePopup()"></div>
@@ -25,15 +83,15 @@
             </div>
         </div>
 
-        <div class="grid md:grid-cols-4 mx-20 sm:gap-20 md:10 lg:gap-5 py-20">
-            <div class="col-span-1">
-                <div class="space-y-6 pt-11">
+        <div class="grid md:grid-cols-4 mr-14 ml-5 sm:gap-20 md:10 lg:gap-5 py-20">
+            <div class="col-span-1 ml-14">
+                <div class="space-y-6 pt-1 md:pt-6">
                     <div>
                         <h1 class="pb-2 font-bold">All</h1>
                         <div class="border"></div>
                     </div>
                     <div>
-                        <h1 class="pb-2 font-bold">All</h1>
+                        <h1 class="pb-2 font-bold">Filter By</h1>
                         <div class="border"></div>
                     </div>
                     <div class="space-y-4">
@@ -111,7 +169,7 @@
                         <input type="range" name="maxPrice" min="0" max="1000" value="{{ request('maxPrice', 1000) }}" oninput="updateMaxValue(this.value)">
 
                         <button type="submit" class="bg-blue-500 text-white py-2  mt-6 px-4 rounded">Filter</button>
-                    </form>
+                     </form>
 
                     <script>
                         function updateMinValue(val) {
@@ -127,7 +185,7 @@
                         <div class="border h-1 bg-[#C75D68] border-[#C75D68]"></div>
                     </div>
 
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                         @foreach($tags as $tag)
                             <div class="border rounded-full p-5">{{ $tag->title }}</div>
                         @endforeach
@@ -141,21 +199,22 @@
             </div>
 
             <div class="col-span-3">
-                <div class="flex items-center justify-center md:justify-end gap-4 pb-5 ">
+                <div class="flex items-center justify-center md:justify-end gap-4 pt-8 pb-3 pr-1  md:pt-16 md:pb-5 md:pr-5 " style="padding-right: 80px;">
                     <p class="text-gray-600 text-sm">Sort by:</p>
                     <div class="flex items-center border border-[#A5A5A5] rounded-full p-2 ">
-                        <input type="text" autocomplete="off" placeholder="Relevance" class=" focus:outline-none p-2 ml-4 placeholder:text-black placeholder:text-sm">
-                        <i class="fa-solid fa-arrow-down mr-1"></i>
+                        <input type="text" autocomplete="off" placeholder="Relevance" class=" focus:outline-none p-1  ml-2 w-40  md:p-2 md:ml-4 placeholder:text-black placeholder:text-sm">
+                        <i class="fa-solid fa-arrow-down "></i>
                     </div>
                 </div>
 
-                <div class="border overflow-hidden"></div>
+                <div class="border w-60 md:w-full overflow-hidden ml-10"></div>
                 <div class="flex flex-wrap  justify-center gap-4 pt-10">
 
                     @foreach($products as $product)
-                        <div class="product-item w-full md:w-1/4 flex flex-col items-center relative group transition-all duration-300 hover:bg-white p-4 rounded-lg hover:shadow-xl">
+                        <div class="product-item w-full md:w-1/4 flex flex-col items-center relative group transition-all duration-300 hover:bg-white  mr-24 md:mr-1 p-12 md:p-4 rounded-lg hover:shadow-xl">
                             <!-- Image -->
                             <div class="relative">
+
                                 <img src="{{ Storage::url($product->img) }}" alt="{{ $product->title }}" class="transition-all duration-300">
 
                                 <!-- New Badge -->

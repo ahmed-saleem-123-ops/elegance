@@ -30,8 +30,8 @@
                     </a>
                 </div>
                
-                <div class="flex space-x-6">
-                    <a href="{{ route('home') }}" class="hover:text-white" >Home</a>
+                <div class="flex flex-col md:flex-row space-x-2 md:space-x-6">
+                    <a href="{{ route('home') }}" class="hover:text-white " >Home</a>
                     <a href="{{ route('about') }}" class="hover:text-white" >ABOUT US</a>
                     <a href="{{ route('products') }}" class="hover:text-white">SHOP</a>
                     <a href="{{ route('contact') }}" class="hover:text-white">CONTACT US</a>
@@ -40,8 +40,8 @@
             </div>
     
    
-            <div class=" ">
-                <h2 class="text-lg font-bold uppercase mb-4">Subscribe to our Newsletter</h2>
+            <div class="flex flex-col items-center ">
+                <h2 class="text-md font-bold uppercase mb-4">Subscribe to our Newsletter</h2>
                 <form class="flex items-center">
                     <input type="email" placeholder="Email" class="w-full px-4 py-2 rounded-l-lg text-black focus:outline-none" />
                     <button class="bg-white text-black px-4 py-2 rounded-r-lg hover:bg-gray-300">
@@ -55,3 +55,5 @@
             <p class="text-gray-500">COPYRIGHT © 2024 Ethereal Elegance</p>
         </div>
     </footer>
+
+

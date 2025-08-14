@@ -20,6 +20,8 @@ class ProductController extends Controller
         return view('backend.product.index' , ['products' => $products]);
     }
 
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -29,8 +31,7 @@ class ProductController extends Controller
     {
         $brands = Brand::get();
         $categories = Category::get();
-        $tags = Tag::get();
-        return view('backend.product.form', ['brands' => $brands , 'categories' => $categories , 'tags' => $tags]);
+        return view('backend.product.form', ['brands' => $brands , 'categories' => $categories ]);
     }
 
     /**
@@ -59,7 +60,6 @@ class ProductController extends Controller
             $model->price = $request->input('price')[$key]['price'];
             $model->brand_id = $request->input('brand_id')[$key]['brand_id'];
             $model->category_id = $request->input('category_id')[$key]['category_id'];
-            $model->tag_id = $request->input('tag_id')[$key]['tag_id'];
 
             if (isset($request->file('img')[$key])) {
                 $file = $request->file('img')[$key]['img'];
@@ -76,6 +76,14 @@ class ProductController extends Controller
     }
 
 
+
+
+    public function search(Request $request)
+    {
+        $query = $request->get('query');
+        $products = Product::where('title', 'like', "%{$query}%")->get();
+        return response()->json($products);
+    }
 
 
     /**
@@ -120,16 +128,19 @@ class ProductController extends Controller
         $store = Product::findOrFail($id);
 
         // Extract array values from the request
-        $store->title = $request->input('title')[0]['title'];  // Accessing the first element in the array
+        $store->title = $request->input('title')[0]['title'];  // Accessing the first element in
+        //
+        //
+        // the array
         $store->price = $request->input('price')[0]['price'];  // Accessing the first element in the array
         $store->brand_id = $request->input('brand_id')[0]['brand_id'];  // Accessing the first element in the array
         $store->category_id = $request->input('category_id')[0]['category_id'];
-        $store->tag_id = $request->input('tag_id')[0]['tag_id'];
 
         if ($request->hasFile('img')) {
             $file = $request->file('img')[0]['img']->store('upload', 'public');  // Accessing the uploaded file
             $store->img = $file;
         }
+
 
         $store->save();
 

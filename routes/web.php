@@ -1,10 +1,20 @@
 <?php
 
-//use App\Http\Controllers\CartController;
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\StripePaymentController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,23 +30,22 @@ use App\Http\Controllers\OrderController;
 
 
 
+
 Route::group(['middleware' => 'guest'], function () {
     Route::get('/login', [\App\Http\Controllers\UserController::class, 'loginForm'])->name('user.login');
     Route::post('/login/store', [\App\Http\Controllers\UserController::class, 'login'])->name('user.login.store');
     Route::get('/register', [\App\Http\Controllers\UserController::class, 'registerForm'])->name('user.register');
     Route::post('/register/store', [\App\Http\Controllers\UserController::class, 'register'])->name('register.user');
-
 });
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/cart/add', [\App\Http\Controllers\FrontendController::class, 'addToCart'])->name('cart.add');
-    Route::get('/cart', [\App\Http\Controllers\FrontendController::class, 'viewCart'])->name('cart.view');
-    Route::delete('/cart/{id}', [\App\Http\Controllers\FrontendController::class, 'destroy'])->name('cart.delete');
-    Route::post('/checkout/store', [\App\Http\Controllers\FrontendController::class, 'checkout'])->name('checkout');
-    Route::post('/cart/update/{id}', [\App\Http\Controllers\FrontendController::class, 'updateCart'])->name('cart.update');
-    Route::get('/cart/thank-you', [\App\Http\Controllers\FrontendController::class, 'ThankYou'])->name('cart.thank-you');
-    Route::post('/logout/front', [\App\Http\Controllers\UserController::class, 'logout'])->name('logout.user');
-});
+
+Route::post('/cart/add', [\App\Http\Controllers\FrontendController::class, 'addToCart'])->name('cart.add');
+Route::get('/cart', [\App\Http\Controllers\FrontendController::class, 'viewCart'])->name('cart.view');
+Route::delete('/cart/{id}', [\App\Http\Controllers\FrontendController::class, 'destroy'])->name('cart.delete');
+Route::post('/checkout/store', [\App\Http\Controllers\FrontendController::class, 'checkout'])->name('checkout');
+Route::post('/cart/update/{id}', [\App\Http\Controllers\FrontendController::class, 'updateCart'])->name('cart.update');
+Route::get('/cart/thank-you', [\App\Http\Controllers\FrontendController::class, 'ThankYou'])->name('cart.thank-you');
+Route::post('/logout/front', [\App\Http\Controllers\UserController::class, 'logout'])->name('logout.user');
 
 Route::get('/', [\App\Http\Controllers\FrontendController::class, 'home'])->name('home');
 Route::get('/about', [\App\Http\Controllers\FrontendController::class, 'about'])->name('about');
@@ -47,8 +56,16 @@ Route::get('/products/{category?}', [\App\Http\Controllers\FrontendController::c
 Route::get('/product_detail/{id}', [\App\Http\Controllers\FrontendController::class, 'details'])->name('product_detail');
 Route::get('/contact', [\App\Http\Controllers\ContactController::class, 'create'])->name('contact');
 Route::post('/contact', [\App\Http\Controllers\ContactController::class, 'store'])->name('contact.store');
-
 Route::get('/error_page', [\App\Http\Controllers\FrontendController::class, 'error_page'])->name('error_page');
+
+Route::get('auth/google', [\App\Http\Controllers\GoogleAuthController::class, 'redirect']);
+Route::get('/auth/google/call-back', [\App\Http\Controllers\GoogleAuthController::class, 'callbackGoogle']);
+
+
+
+Route::match(['get', 'post'], 'stripe', [StripePaymentController::class, 'stripe'])->name('stripe');
+Route::post('stripe/post', [StripePaymentController::class, 'stripePost'])->name('stripe.post');
+
 
 
 // Admin Routes
@@ -73,6 +90,13 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     Route::get('/blog/edit/{id}', [\App\Http\Controllers\BlogController::class, 'edit'])->name('blog.edit');
     Route::post('/blog/update/{id}', [\App\Http\Controllers\BlogController::class, 'update']);
     Route::delete('/blog/{id}', [\App\Http\Controllers\BlogController::class, 'destroy'])->name('blog.delete');
+
+    Route::get('/ahmed', [\App\Http\Controllers\AhmedController::class, 'index'])->name('ahmed');
+    Route::get('/ahmed/create', [\App\Http\Controllers\AhmedController::class, 'create'])->name('ahmed.create');
+    Route::post('/ahmed/store',[\App\Http\Controllers\AhmedController::class, 'store'])->name('ahmed.store');
+    Route::get('/ahmed/edit/{id}', [\App\Http\Controllers\AhmedController::class,'edit'])->name('ahmed.edit');
+    Route::put('/ahmed/update/{id}',[\App\Http\Controllers\AhmedController::class, 'update'])->name('ahmed.update');
+    Route::delete('/ahmed/{id}',[\App\Http\Controllers\AhmedController::class, 'destroy'])->name('ahmed.delete');
 
 
     Route::get('/category', [\App\Http\Controllers\CategoryController::class, 'index'])->name('category');
@@ -113,12 +137,9 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
     Route::get('/tag/edit/{id}', [\App\Http\Controllers\TagController::class, 'edit'])->name('tag.edit');
     Route::put('tag/update/{id}', [\App\Http\Controllers\TagController::class, 'update'])->name('tag.update');
     Route::delete('tag/delete/{id}', [\App\Http\Controllers\TagController::class, 'destroy'])->name('tag.delete');
-
-
-
+    
 
     Route::get('/admin_index', [\App\Http\Controllers\FrontendController::class, 'admin'])->name('admin');
-
     Route::post('/logout', [\App\Http\Controllers\Admin\AdminController::class, 'logout'])->name('logout');
 
 });
@@ -127,7 +148,3 @@ Route::group(['middleware' => 'auth:admin', 'prefix' => 'admin'], function () {
 
 Route::get('/products/category/{category}', [\App\Http\Controllers\FrontendController::class, 'showByCategory'])->name('products.byCategory');
 Route::get('/products/brand/{brand}', [\App\Http\Controllers\FrontendController::class, 'showByBrand'])->name('products.byBrand');
-
-
-
-

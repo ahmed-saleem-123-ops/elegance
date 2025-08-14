@@ -37,21 +37,7 @@
                         @enderror
                     </td>
 
-                    <td class="p-4">
-                        <div>
-                            <label class="block text-lg font-semibold mb-1">Tag</label>
-                            <select class="border border-gray-300 rounded p-2 w-full" name="tag_id[0][tag_id]">
-                                @foreach($tags as $tag)
-                                    <option value="{{ $tag->id }}" {{ isset($show) && $show->tag_id == $tag->id ? 'selected' : '' }}>
-                                        {{ $tag->title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('tag_id.0.tag_id')
-                            <span class="text-red-500">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </td>
+
 
                     <td class="p-4">
                         <div>
@@ -81,6 +67,7 @@
                             </select>
                             @error('category_id.0.category_id')
                             <span class="text-red-500">{{ $message }}</span>
+
                             @enderror
                         </div>
                     </td>

@@ -1,10 +1,10 @@
 @extends('frunt_layout.master')
 @section('content')
 
-    <div class="container mx-auto mt-5 p-4">
+    <div class="container mx-auto mt-5 p-12">
         <h1 class="text-2xl font-bold mb-6">Your Cart</h1>
         @if(session()->has('cart') && count(session('cart')) > 0)
-            <table class="w-full text-left border-collapse">
+            <table class="min-w-full text-left border-collapse table-auto">
                 <thead>
                 <tr class="border-b-2 border-gray-200 text-left">
                     <th class="p-3">Image</th>
@@ -18,7 +18,9 @@
                 <tbody>
                 @foreach($cart as $id => $details)
                     <tr class="border-b border-gray-200">
-                        <td class="p-3"><img src="{{ asset('storage/' . $details['img']) }}" class="w-16 h-16 object-cover" alt="Product"></td>
+                        <td class="p-3">
+                            <img src="{{ asset('storage/' . $details['img']) }}" class="w-16 h-16 object-cover" alt="Product">
+                        </td>
                         <td class="p-3">{{ $details['name'] ?? 'No name available' }}</td>
                         <td class="p-3">
                             <div class="flex items-center space-x-2">
@@ -41,7 +43,26 @@
                 </tbody>
             </table>
 
-            <form action="{{ route('checkout') }}" method="POST" class="mt-8">
+            <!-- Mobile responsive class -->
+            <style>
+                @media (max-width: 768px) {
+                    table {
+                        display: block;
+                        width: 100%;
+                        overflow-x: auto;
+                        white-space: nowrap;
+                    }
+                    th, td {
+                        padding: 8px;
+                    }
+                    th {
+                        text-align: left;
+                    }
+                }
+            </style>
+
+
+            <form action="{{ URL::to('stripe') }}" class="mt-8">
                 @csrf
                 <h4 class="text-xl font-semibold mb-4">Checkout Details</h4>
                 <div class="space-y-4">
@@ -49,6 +70,9 @@
                     <input type="email" name="email" class="w-full p-2 border border-gray-300 rounded" placeholder="Email" required>
                     <input type="text" name="city" class="w-full p-2 border border-gray-300 rounded" placeholder="City" required>
                     <input type="text" name="country" class="w-full p-2 border border-gray-300 rounded" placeholder="Country" required>
+                    <input type="hidden" name="bill" value="{{ $details['price'] * $details['quantity'] }}">
+                    <input type="hidden" name="price" value="{{$details['price']}}">
+                    <input type="hidden" name="quantity" value="{{$details['quantity']}}">
                     <textarea name="address" class="w-full p-2 border border-gray-300 rounded" placeholder="Address" required></textarea>
                 </div>
                 <div class="flex items-center mt-2 gap-4">

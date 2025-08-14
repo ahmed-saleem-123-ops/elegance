@@ -58,6 +58,12 @@
                                     <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••••" class="w-full py-2 px-3 text-gray-800 rounded-r focus:outline-none" required>
                                 </div>
                             </div>
+                            <div class="flex justify-center mb-4">
+                                <a href="{{ 'auth/google' }}" class="w-full py-2 px-4 text-white bg-black rounded hover:bg-gray-800 flex items-center justify-center gap-2">
+                                    <i class="fab fa-google text-xl"></i>
+                                    <span>Continue with Google</span>
+                                </a>
+                            </div>
 
                             <button type="submit" class="w-full py-2 mb-4 text-white bg-black rounded hover:bg-gray-800">REGISTER</button>
 

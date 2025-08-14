@@ -1,25 +1,79 @@
 @extends('frunt_layout.master')
 @section('content')
-
 <main>
 
     <div id="1styear">
-        <div class="bg-cover bg-center flex items-center justify-center px-6"
-             style="height: 572px; background-image: url('/assets/images/Frame 97.png');">
+        <div class="responsive-banner bg-cover bg-center flex items-center justify-center px-6"
+             style=" background-image: url('/assets/images/Frame 97.png');">
             <div class="flex flex-col items-start md:items-center">
-                <h1 class="text-4xl md:text-6xl mb-3 text-[#323232] font-times italic font-normal">Our Blogs</h1>
-                <p class="mb-3 text-lg md:text-xl text-[#383838] font-poppins  tracking-[5.6px] uppercase">True Natural - True Organic</p>
+                <h1 class="text-2xl md:text-6xl text-[#323232] font-times italic font-normal">Our Blogs</h1>
+                <p class="mb-3 text-sm md:text-xl text-[#383838] font-poppins  tracking-[5.6px] uppercase">True Natural - True Organic</p>
             </div>
         </div>
     </div>
 
+    <style>
+        .responsive-banner {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
 
-    <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-3 gap-6">
+        @media (min-width: 768px)  { /* Medium screens and above */
+            .responsive-banner {
+                height: 400px;
+            }
+        }
+
+        @media (min-width: 1024px) { /* Large screens and above */
+            .responsive-banner {
+                height: 572px;
+            }
+        }
+
+        .banner-title {
+            font-size: 32px; /* Default font size for smaller screens */
+        }
+
+        @media (min-width: 768px) {
+            .banner-title {
+                font-size: 48px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .banner-title {
+                font-size: 56px;
+            }
+        }
+
+        .banner-button {
+            padding: 8px 16px; /* Default button padding */
+            font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .banner-button {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .banner-button {
+                padding: 16px 24px;
+                font-size: 18px;
+            }
+        }
+
+    </style>
+
+    <div class="container mx-auto p-4 grid grid-cols-1 md:grid-cols-3 ">
         <!-- First Column -->
         @foreach($blogs as $blog)
         <div class="">
             <div class=" p-4 rounded">
-                <img src="{{ Storage::url($blog->img) }}" alt="{{ $blog->title }}" class="w-50 h-50  group-hover:opacity-80 transition-opacity duration-300" >
+                <img src="{{ Storage::url($blog->img) }}" alt="{{ $blog->title }}" style="width: 70%; height: 70%;" class="w-50 h-50  group-hover:opacity-80 transition-opacity duration-300" >
             </div>
             <div class="p-4">
                 <div class="py-4 flex items-center gap-2">
@@ -31,6 +85,8 @@
                 <p class="text-gray-600 mt-2">{{ $blog->country }}</p>
                 <p class="text-gray-600 mt-2">{{ $blog->state }}</p>
                 <p class="text-gray-600 mt-2">{{ $blog->city }}</p>
+
+
                 <p class="text-gray-600 mt-2">{{ $blog->description }}</p>
 
                 <div class="w-fit pt-4">
@@ -39,7 +95,6 @@
                 </div>
             </div>
         </div>
-
     @endforeach
 
     </div>
@@ -78,31 +133,46 @@
     </div>
 
 
-    <div class="">
-        <div class="swiper-container my-10 overflow-hidden pb-16">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 94.png" alt="Slide 1" class="w-full  h-96 object-cover">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 95.png" alt="Slide 2" class="w-full  h-96 object-cover">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 96.png" alt="Slide 1" class="w-full h-96 object-cover">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 97.png" alt="Slide 1" class="w-full  h-96 object-cover">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 98.png" alt="Slide 1" class="w-full  h-96 object-cover">
-                </div>
-                <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 99.png" alt="Slide 1" class="w-full  h-96 object-cover">
-                </div>
-            </div>
-            <div class="swiper-pagination"></div>
-        </div>
-    </div>
+{{--    <div class="">--}}
+{{--        <div class="swiper-container my-10 overflow-hidden pb-16">--}}
+{{--            <div class="swiper-wrapper">--}}
+{{--                <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/pppp.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/pppp.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div>--}}
+{{--                <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/llll.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/llll.png" alt="Slide 2" class="object-cover">--}}
+{{--                </div>--}}
+{{--                <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/qqqq.png" alt="Slide 1" class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/qqqq.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div>--}}
+{{--                <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/wwww.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/wwww.png" alt="Slide 1" class="object-cover">--}}
+{{--                </div>--}}
+{{--                <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/eeee.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/eeee.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div> <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/pppp.png" alt="Slide 1" class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/pppp.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div> <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/llll.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/llll.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div> <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/wwww.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/wwww.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div>--}}
+{{--                <div class="swiper-slide">--}}
+{{--                    <img src="/assets/images/pppp.png" alt="Slide 1"  class="object-cover">--}}
+{{--                    --}}{{--                        <img src="http://127.0.0.1:5501/public/assets/images/pppp.png" alt="Slide 1" class=" object-cover">--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="swiper-pagination"></div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
 </main>
 

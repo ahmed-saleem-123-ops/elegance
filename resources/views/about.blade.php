@@ -2,14 +2,69 @@
 @section('content')
 <main>
     <div id="secsix">
-        <div class="bg-cover bg-center flex items-center justify-center px-6"
-             style="height: 572px; background-image: url('/assets/images/ok.png');">
+        <div class="bg-cover responsive-banner bg-cover bg-center flex items-center justify-center px-6"
+             style=" background-image: url('/assets/images/ok.png');">
             <div class="flex flex-col items-center">
-                <h1 class="text-4xl md:text-6xl mb-3 text-[#323232] font-times text-[56px] italic font-normal leading-normal">About us</h1>
+                <h1 class="text-2xl md:text-6xl  text-[#323232] font-times text-[56px] italic font-normal  leading-normal">About us</h1>
                 <p class="mb-3 text-lg md:text-xl">True Natural - True Organic</p>
             </div>
         </div>
     </div>
+    <style>
+        .responsive-banner {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        @media (min-width: 768px)  { /* Medium screens and above */
+            .responsive-banner {
+                height: 400px;
+            }
+        }
+
+        @media (min-width: 1024px) { /* Large screens and above */
+            .responsive-banner {
+                height: 572px;
+            }
+        }
+
+        .banner-title {
+            font-size: 32px; /* Default font size for smaller screens */
+        }
+
+        @media (min-width: 768px) {
+            .banner-title {
+                font-size: 48px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .banner-title {
+                font-size: 56px;
+            }
+        }
+
+        .banner-button {
+            padding: 8px 16px; /* Default button padding */
+            font-size: 14px;
+        }
+
+        @media (min-width: 768px) {
+            .banner-button {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .banner-button {
+                padding: 16px 24px;
+                font-size: 18px;
+            }
+        }
+
+    </style>
 
 
     <div id="secone">
@@ -140,22 +195,37 @@
         <div class="swiper-container my-10 overflow-hidden pb-16">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 94.png" alt="Slide 1" class="w-full  h-96 object-cover">
+                    <img src="/assets/images/pppp.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/pppp.png" alt="Slide 1" class=" object-cover">--}}
                 </div>
                 <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 95.png" alt="Slide 2" class="w-full  h-96 object-cover">
+                    <img src="/assets/images/llll.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/llll.png" alt="Slide 2" class="object-cover">--}}
                 </div>
                 <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 96.png" alt="Slide 1" class="w-full h-96 object-cover">
+                    <img src="/assets/images/qqqq.png" alt="Slide 1" class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/qqqq.png" alt="Slide 1" class=" object-cover">--}}
                 </div>
                 <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 97.png" alt="Slide 1" class="w-full  h-96 object-cover">
+                    <img src="/assets/images/wwww.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/wwww.png" alt="Slide 1" class="object-cover">--}}
                 </div>
                 <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 98.png" alt="Slide 1" class="w-full  h-96 object-cover">
+                    <img src="/assets/images/eeee.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/eeee.png" alt="Slide 1" class=" object-cover">--}}
+                </div> <div class="swiper-slide">
+                    <img src="/assets/images/pppp.png" alt="Slide 1" class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/pppp.png" alt="Slide 1" class=" object-cover">--}}
+                </div> <div class="swiper-slide">
+                    <img src="/assets/images/llll.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/llll.png" alt="Slide 1" class=" object-cover">--}}
+                </div> <div class="swiper-slide">
+                    <img src="/assets/images/wwww.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/wwww.png" alt="Slide 1" class=" object-cover">--}}
                 </div>
                 <div class="swiper-slide">
-                    <img src="/assets/images/Rectangle 99.png" alt="Slide 1" class="w-full  h-96 object-cover">
+                    <img src="/assets/images/pppp.png" alt="Slide 1"  class="object-cover">
+                    {{--                        <img src="http://127.0.0.1:5501/public/assets/images/pppp.png" alt="Slide 1" class=" object-cover">--}}
                 </div>
             </div>
             <div class="swiper-pagination"></div>

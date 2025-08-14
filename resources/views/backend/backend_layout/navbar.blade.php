@@ -3,7 +3,6 @@
     <!-- Header -->
     <header class="bg-white shadow p-4 flex flex-wrap md:flex-nowrap justify-between items-center">
         <h1 class="text-2xl font-bold mb-4 md:mb-0 w-full md:w-auto text-center md:text-left">Dashboard</h1>
-
         <div class="flex flex-wrap md:flex-nowrap items-center w-full md:w-auto justify-center md:justify-end space-x-0 md:space-x-4">
 
             <!-- Search Input (takes full width on mobile) -->
@@ -29,4 +28,8 @@
             </div>
         </div>
     </header>
+
+
+
+
 

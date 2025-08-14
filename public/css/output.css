@@ -231,6 +231,9 @@ b,
 strong {
   font-weight: bolder;
 }
+.hidden {
+  display: none;
+}
 
 /*
 1. Use the user's configured `mono` font-family by default.

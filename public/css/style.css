@@ -22,6 +22,30 @@
 span.swiper-pagination-bullet {
     background: black;
 }
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    display: none;  /* Initial state mein hidden hoga */
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+.search-icon {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.ml-2 {
+    margin-left: 8px; /* Input field aur icon ke beech thoda space */
+}
+
+
+
 
 
 

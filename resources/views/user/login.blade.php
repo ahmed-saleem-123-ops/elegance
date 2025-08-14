@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body class="bg-gray-100">
-
 <main>
     <div id="secone">
         <div class="flex justify-center py-10">
@@ -39,6 +38,7 @@
                                 @error('password')
                                 <div class="text-red-500 text-sm">{{ $message }}</div>
                                 @enderror
+
                             </div>
                             <div class="flex items-center justify-between mb-6">
                                 <label class="flex items-center">
@@ -48,14 +48,22 @@
                                 <a href="#" class="text-sm text-red-500 hover:underline">Forgot Password?</a>
                             </div>
                             <button type="submit" class="w-full py-2 mb-4 text-white bg-black rounded hover:bg-gray-800">LOGIN</button>
+
                             <div class="flex items-center justify-center my-4">
                                 <span class="w-1/3 border-t border-gray-300"></span>
                                 <span class="px-2 text-gray-500">OR</span>
                                 <span class="w-1/3 border-t border-gray-300"></span>
                             </div>
+{{--                            <!-- Continue with Google Button -->--}}
+                            <div class="flex justify-center mb-4">
+                                <a href="{{ 'auth/google' }}" class="w-full py-2 px-4 text-white bg-black rounded hover:bg-gray-800 flex items-center justify-center gap-2">
+                                    <i class="fab fa-google text-xl"></i>
+                                    <span>Continue with Google</span>
+                                </a>
+                            </div>
+{{--                            <!-- Existing Social Icons -->--}}
                             <div class="flex justify-center space-x-4 mb-6">
                                 <a href="#" class="text-gray-700 hover:text-black"><i class="fab fa-facebook-f text-2xl"></i></a>
-                                <a href="#" class="text-gray-700 hover:text-black"><i class="fab fa-google text-2xl"></i></a>
                                 <a href="#" class="text-gray-700 hover:text-black"><i class="fab fa-twitter text-2xl"></i></a>
                             </div>
                             <p class="text-sm text-center text-gray-600">Don’t have an account? <a href="{{ route('user.register') }}" class="text-red-500 hover:underline">SIGN UP</a></p>

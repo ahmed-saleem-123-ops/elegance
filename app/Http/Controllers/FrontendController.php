@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog ;
+use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -17,21 +17,17 @@ use App\Models\OrderItem;
 class FrontendController extends Controller
 {
 
-    public function home()
+    public function home(Request $request)
     {
-        $blogs1 = Blog::take(3)->get();
-        $products = Product::take(4)->get();
+        $blogs1 = Blog::take(3)->where('title', 'like', "%{$request->search}%")->get();
+        $products = Product::take(4)->where('title', 'like', "%{$request->search}%")->get();
         $items = Testimonial::all();
 
-        return view('index-html', [
-            'items' => $items,
-            'blogs1' => $blogs1,
-            'product1' => $products[0] ?? null,
-            'product2' => $products[1] ?? null,
-            'product3' => $products[2] ?? null,
-            'product4' => $products[3] ?? null,
-        ]);
+        return view('index-html', ['items' => $items, 'blogs1' => $blogs1, 'products' => $products,]);
     }
+
+
+
 
 
     public function destroy($id)
@@ -59,6 +55,8 @@ class FrontendController extends Controller
             $cart[$id]['quantity'] = $request->quantity;
             session()->put('cart', $cart);
 
+
+
             return response()->json(['success' => true]);
         }
 
@@ -82,6 +80,7 @@ class FrontendController extends Controller
             $cart[$product->id]['quantity'] += $request->quantity;
         } else {
             $cart[$product->id] = [
+                "product_id" => $product->id,
                 "name" => $product->title,
                 "price" => $product->price,
                 "quantity" => $request->quantity,
@@ -89,10 +88,12 @@ class FrontendController extends Controller
             ];
         }
 
-        session()->put('cart', $cart);
+                session()->put('cart', $cart);
 
         return response()->json(['message' => 'Product added to cart successfully!']); // Return JSON response
     }
+
+
 
 
     public function checkout(Request $request)
@@ -106,19 +107,23 @@ class FrontendController extends Controller
 
         DB::transaction(function () use($request, $cartItems) {
             $order = Order::create([
+                'status' => "pending",
                 'name' => $request->name,
-                'email' => $request->email,
+                 'email' => $request->email,
                 'city' => $request->city,
                 'country' => $request->country,
                 'address' => $request->address,
+                'bill' => $request->bill
             ]);
 
             foreach ($cartItems as $id => $item) {
                 OrderItem::create([
                     'order_id' => $order->id,
                     'product_id' => $id,
+
                     'qty' => $item['quantity'],
                 ]);
+
             }
         });
 
@@ -129,11 +134,11 @@ class FrontendController extends Controller
 
 
 
-
     public function about()
     {
         return view('about');
     }
+
 
 
 
@@ -151,7 +156,7 @@ class FrontendController extends Controller
         $minPrice = $request->input('minPrice', 0);
         $maxPrice = $request->input('maxPrice', 1000);
 
-        $products = Product::whereBetween('price', [$minPrice, $maxPrice])
+        $products = Product::whereBetween('price', [$minPrice, $maxPrice])->where('title', 'like', "%{$request->search}%")
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -183,7 +188,6 @@ class FrontendController extends Controller
     {
         return view('backend.admin');
     }
-
 
 
     public function showByCategory(Request $request, $categoryId)

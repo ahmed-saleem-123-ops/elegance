@@ -57,7 +57,6 @@ class UserController extends Controller
         if (Auth::attempt($request->only('email', 'password'))) {
             return redirect()->route('home');
         }
-
         return redirect()->back()->withErrors('Error occurred during registration');
     }
 
